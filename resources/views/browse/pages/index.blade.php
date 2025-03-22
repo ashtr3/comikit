@@ -2,7 +2,36 @@
 
 @section('content')
 
-<h1>Pages</h1>
+<div class="gallery-filters">
+    <button id="gallery-expand-btn">
+        Expand All
+    </button>
+    <button id="gallery-collapse-btn">
+        Collapse All
+    </button>
+</div>
+@foreach ($groupedPages as $chapters)
+    <details class="volume-group" open>
+        <summary>
+            {{ $chapters->first()->first()->chapter->volume->display_name }}
+        </summary>
+        @foreach ($chapters as $pages)
+            <details class="chapter-group" open>
+                <summary>{{ $pages->first()->chapter->display_name }}</summary>
+                <div class="page-gallery">
+                    @foreach ($pages as $page)
+                        <a href="{{ route('browse.page.view', $page) }}">
+                            <img src="{{ $page->page_image }}" alt="{{ $page->display_name }} image">
+                        </a>                        
+                    @endforeach
+                </div>
+            </details>
+        @endforeach
+    </details>    
+@endforeach
+
+
+{{-- <h1>Pages</h1>
 
 <table>
     <thead>
@@ -41,6 +70,6 @@
             @endforeach
         @endforeach
     </tbody>
-</table>
+</table> --}}
 
 @endsection
