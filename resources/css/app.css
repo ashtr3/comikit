@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+/* @import "@fortawesome/fontawesome-free/css/all.css"; */
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -9,4 +9,259 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+* {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body {
+    background: hsl(0, 0%, 85%);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    & nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-inline: 1rem;
+
+        & .nav-list > ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+
+            & > li {
+                position: relative;
+
+                & a {
+                    padding-block-end: 0.25rem;
+                }
+
+                &:has(menu) {
+                    cursor: pointer;
+                }
+
+                & .creator {
+                    position: relative;
+
+                    & > svg {
+                        opacity: 0;
+                        position: absolute;
+                        top: -1rem;
+                        right: 0;
+                        transition: opacity 500ms ease;
+                    }
+                }
+
+                &:hover .creator > svg {
+                    opacity: 0.75;
+                    animation: float 1s ease-in-out infinite;
+                }
+
+                &:hover > menu {
+                    display: flex;
+                }
+
+                & > menu {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    padding: .75rem 0;
+                    display: none;
+
+                    & ul {
+                        background-color: rgb(235, 235, 235);
+                        border: 1.5px solid black;
+                        list-style: none;
+                        padding: 0 0 0.25rem;
+                        margin: 0;
+
+                        & li {
+                            white-space: nowrap;
+                            padding: .5rem;
+                        }
+                    }
+                }
+            }
+        }
+
+        & .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            & .nav-user-identity, .nav-user-login-btn, .nav-user-logout-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 100%;
+                cursor: pointer;
+                color: inherit;
+                height: 32px;
+                width: fit-content;
+                min-width: 32px;
+                max-width: 32px;
+                padding: 0;
+                margin: 0;
+                background: transparent;
+                border: 1.5px solid black;
+                transition: max-width 2.5s ease, background 500ms ease-out, color 500ms ease;
+
+                &:hover {
+                    max-width: 60rem;
+                    background: black;
+                    border-radius: 1.5rem;
+                    padding-inline: 1rem;
+                    color: white;
+                }
+
+                & span.hover-only {
+                    display: none;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+
+                &:hover span.hover-only {
+                    display: block;
+                    padding-inline-end: 0.5rem;
+                }
+
+                & img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 100%;
+                    transition: width 500ms ease, height 500ms ease;
+                }
+
+                &:hover img {
+                    margin-inline-end: -1rem;
+                }
+
+                & svg {
+                    width: 24px;
+                    height: 24px;
+                    transition: width 500ms ease, height 500ms ease;
+                }
+
+                &:hover svg {
+                    width: 18px;
+                    height: 18px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes float {
+    0% {
+        top: -1rem;
+    }
+    50% {
+        top: -0.75rem;
+    }
+    100% {
+        top: -1rem;
+    }
+}
+
+main {
+    padding: 1rem;
+}
+
+.sr-only {
+    display: none;
+}
+
+.fw-medium {
+    font-weight: 600;
+}
+
+.link-effect {
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #000;
+        transition: width 500ms ease;
+    }
+
+    &:hover::after {
+        width: 100%;
+    }
+}
+
+.page-patron-alert {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1rem;
+    color: white;
+    padding: 1rem;
+    background-color: hsl(0, 0%, 10%);
+    width: fit-content;
+    max-width: min(100%, 650px);
+    margin-inline: auto;
+    margin-block-end: 1rem;
+}
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block-end: 1rem;
+
+    & ul.page-breadcrumb {
+        display: flex;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        & li {
+            font-size: .95em;
+            font-weight: 600;
+
+            &:not(:first-child)::before {
+                content: '•';
+                padding-inline: .75rem .5rem;
+            }
+        }
+    }
+
+    & h1.page-title {
+        margin: 0;
+    }
+}
+
+.page-image-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+    margin-block-end: 1rem;
+
+    & img.page-image {
+        border: 2px solid black;
+        max-width: min(100%, 900px);
+    }
+}
+
+.page-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+
+    & .inactive {
+        color: hsl(0, 0%, 60%);
+    }
 }
