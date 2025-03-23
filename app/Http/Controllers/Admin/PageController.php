@@ -38,16 +38,31 @@ class PageController extends Controller
         $page = Page::create($request->except('page_image'));
 
         Page::where('page_index', '>=', $page->page_index)
-            ->where('id', '!=', $page->id)->increment('page_index');
+            ->where('id', '!=', $page->id)
+            ->increment('page_index');
 
         if ($request->hasFile('page_image')) {
             $file = $request->file('page_image');
             $file_ext = $file->getClientOriginalExtension();
-            $file_path = "comics/$page->id.$file_ext";
+            $file_path = "comics/{$page->id}.{$file_ext}";
             
             Storage::put($file_path, file_get_contents($file));
-            $page->page_image = Storage::url($file_path);
-            $page->save();
+
+            $file_name = $file->getClientOriginalName();
+            $mime_type = $file->getMimeType();
+            $file_size = $file->getSize();
+            
+            $page->images()->create([
+                'imageable_id' => $page->id,
+                'imageable_type' => Page::class,
+                'url' => Storage::url($file_path),
+                'name' => $file_name,
+                'alt_text' => $page->display_name . ' image',
+                'file_size' => $file_size,
+                'mime_type' => $mime_type,
+                'extension' => $file_ext,
+                'display_type' => 'full'
+            ]);
         }
 
         return redirect()->route('admin.page.view', $page);
@@ -64,11 +79,22 @@ class PageController extends Controller
         if ($request->hasFile('page_image')) {
             $file = $request->file('page_image');
             $file_ext = $file->getClientOriginalExtension();
-            $file_path = "comics/$page->id.$file_ext";
+            $file_path = "comics/{$page->id}.{$file_ext}";
             
             Storage::put($file_path, file_get_contents($file));
-            $page->page_image = Storage::url($file_path);
-            $page->save();
+
+            $file_name = $file->getClientOriginalName();
+            $mime_type = $file->getMimeType();
+            $file_size = $file->getSize();
+
+            $page->image()->update([
+                'url' => Storage::url($file_path),
+                'name' => $file_name,
+                'alt_text' => $page->display_name . ' image',
+                'file_size' => $file_size,
+                'mime_type' => $mime_type,
+                'extension' => $file_ext,
+            ]);
         }
 
         return redirect()->route('admin.page.view', $page);

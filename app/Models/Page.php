@@ -19,7 +19,6 @@ class Page extends Model
         'page_index',
         'page_number',
         'page_name',
-        'page_image',
         'page_description',
         'page_secret',
         'is_cover',
@@ -39,6 +38,18 @@ class Page extends Model
 
     public function chapter() {
         return $this->belongsTo(Chapter::class);
+    }
+
+    public function images() {
+        return $this->morphMany(Image::class, 'imageable');
+    }
+
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable')->where('display_type', 'full');
+    }
+
+    public function thumbnail() {
+        return $this->morphOne(Image::class, 'imageable')->where('display_type', 'thumb');
     }
 
     public function comments() {

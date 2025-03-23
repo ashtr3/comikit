@@ -40,7 +40,7 @@ class StorePageRequest extends FormRequest
                         ->where('page_name', $this->page_name);
                 })
             ],
-            'page_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'page_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'page_description' => 'nullable|string',
             'page_secret' => 'nullable|string',
             'is_cover' => 'required|boolean',

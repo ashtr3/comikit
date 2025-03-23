@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedInteger('page_index');
             $table->unsignedInteger('page_number')->nullable();
             $table->string('page_name')->nullable();
-            $table->string('page_image')->nullable();
             $table->text('page_description')->nullable();
             $table->text('page_secret')->nullable();
             $table->boolean('is_cover')->default(false);

@@ -21,7 +21,7 @@
                 <div class="page-gallery">
                     @foreach ($pages as $page)
                         <a href="{{ route('browse.page.view', $page) }}">
-                            <img src="{{ $page->page_image }}" alt="{{ $page->display_name }} image">
+                            {!! $page->image->display_image !!}
                         </a>                        
                     @endforeach
                 </div>

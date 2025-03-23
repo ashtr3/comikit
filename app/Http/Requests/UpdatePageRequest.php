@@ -37,7 +37,7 @@ class UpdatePageRequest extends FormRequest
                         ->where('page_name', $this->page_name);
                 })->ignore($this->id, 'id')
             ],
-            'page_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'page_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'page_description' => 'nullable|string',
             'page_secret' => 'nullable|string',
             'is_cover' => 'required|boolean',

@@ -279,7 +279,7 @@ main {
     margin-inline: auto;
     margin-block-end: 1rem;
 
-    & img.page-image {
+    & img {
         border: 2px solid black;
         max-width: min(100%, 900px);
     }

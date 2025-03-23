@@ -28,7 +28,7 @@
 
 <div>
     <strong>Page Image</strong>
-    <img src="{{ $page->page_image }}" alt="{{ $page->display_name }} image">
+    {!! $page->image->display_image !!}
 </div>
 
 <div>

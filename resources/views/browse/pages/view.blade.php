@@ -30,10 +30,10 @@
 <div class="page-image-wrapper">
     @if ($page->next_page && $page->next_page->is_available)
         <a href="{{ route('browse.page.view', $page->next_page) }}">
-            <img class="page-image" src="{{ $page->page_image }}" alt="{{ $page->display_name }} image">
+            {!! $page->image->display_image !!}
         </a>
     @else
-        <img class="page-image" src="{{ $page->page_image }}" alt="{{ $page->display_name }} image">
+        {!! $page->image->display_image !!}
     @endif
 </div>
 
